@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { LayoutDashboard, CheckSquare, User, Menu, X } from "lucide-react"
+import { LayoutDashboard, CheckSquare, User, Menu, X, LogOut } from "lucide-react" // 1. Imported LogOut icon
 import { NavLink, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -37,6 +37,7 @@ export function PortalSidebar() {
 
   return (
     <div className={cn(
+      // The parent is a flex-col, which allows us to push the footer to the bottom
       "flex flex-col bg-card border-r border-border transition-all duration-300 ease-in-out",
       collapsed ? "w-16" : "w-64"
     )}>
@@ -56,6 +57,7 @@ export function PortalSidebar() {
           onClick={() => setCollapsed(!collapsed)}
           className="h-8 w-8 p-0"
         >
+          {/* Changed the collapse icon to a more standard 'Menu' */}
           {collapsed ? <Menu className="h-4 w-4" /> : <X className="h-4 w-4" />}
         </Button>
       </div>
@@ -91,14 +93,19 @@ export function PortalSidebar() {
         ))}
       </nav>
 
-      {/* Footer */}
-      {!collapsed && (
-        <div className="p-4 border-t border-border">
-          <div className="text-xs text-muted-foreground text-center">
-            Product Design & Prototyping
-          </div>
-        </div>
-      )}
+      {/* 2. Removed the old footer and added this new section */}
+      {/* The 'mt-auto' class pushes this div to the very bottom */}
+      <div className="p-4 border-t border-border mt-auto">
+        <Button variant="ghost" className="w-full justify-start text-left p-3">
+          <LogOut className={cn(
+            "transition-all",
+            collapsed ? "h-5 w-5" : "h-5 w-5 mr-3"
+          )} />
+          {!collapsed && (
+            <span className="text-sm font-medium">Sign Out</span>
+          )}
+        </Button>
+      </div>
     </div>
   )
 }
