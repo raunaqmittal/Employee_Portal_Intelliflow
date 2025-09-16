@@ -22,6 +22,8 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          light: "hsl(var(--primary-light))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -47,6 +49,25 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Task Status Colors
+        status: {
+          todo: "hsl(var(--status-todo))",
+          "todo-bg": "hsl(var(--status-todo-bg))",
+          "todo-border": "hsl(var(--status-todo-border))",
+          progress: "hsl(var(--status-progress))",
+          "progress-bg": "hsl(var(--status-progress-bg))",
+          "progress-border": "hsl(var(--status-progress-border))",
+          done: "hsl(var(--status-done))",
+          "done-bg": "hsl(var(--status-done-bg))",
+          "done-border": "hsl(var(--status-done-border))",
+          blocked: "hsl(var(--status-blocked))",
+          "blocked-bg": "hsl(var(--status-blocked-bg))",
+          "blocked-border": "hsl(var(--status-blocked-border))",
+        },
+        // Availability Colors
+        available: "hsl(var(--available))",
+        busy: "hsl(var(--busy))",
+        leave: "hsl(var(--leave))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -80,10 +101,30 @@ export default {
             height: "0",
           },
         },
+        fadeIn: {
+          from: { opacity: "0", transform: "translateY(10px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        slideUp: {
+          from: { transform: "translateY(20px)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fadeIn 0.5s ease-out",
+        "slide-up": "slideUp 0.3s ease-out",
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-card": "var(--gradient-card)",
+        "gradient-status": "var(--gradient-status)",
+      },
+      boxShadow: {
+        "card": "var(--shadow-card)",
+        "hover": "var(--shadow-hover)",
+        "focus": "var(--shadow-focus)",
       },
     },
   },
