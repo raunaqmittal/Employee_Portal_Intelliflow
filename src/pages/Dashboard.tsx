@@ -7,18 +7,22 @@ import { ArrowRight, Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { getTasksForEmployee } from '@/utils/dataParser'
 import type { TaskWithDetails, TaskStatus } from '@/types'
-
-// For demo purposes, using employee ID 1 (Neha Saxena)
-const CURRENT_EMPLOYEE_ID = 1
+import { useUser } from '@/contexts/UserContext' // Import useUser to access employee ID
 
 export default function Dashboard() {
+  const { employee } = useUser(); // Get the globally managed employee
   const [tasks, setTasks] = useState<TaskWithDetails[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchTasks() {
+      // Ensure employee exists before fetching their tasks
+      if (!employee) {
+        setLoading(false);
+        return;
+      }
       try {
-        const employeeTasks = await getTasksForEmployee(CURRENT_EMPLOYEE_ID)
+        const employeeTasks = await getTasksForEmployee(employee.employee_id)
         setTasks(employeeTasks)
       } catch (error) {
         console.error('Error fetching tasks:', error)
@@ -28,7 +32,7 @@ export default function Dashboard() {
     }
 
     fetchTasks()
-  }, [])
+  }, [employee]) // Re-fetch tasks if the employee context changes
 
   const handleTaskStatusChange = (taskId: number, newStatus: TaskStatus) => {
     setTasks(prevTasks =>
@@ -50,10 +54,10 @@ export default function Dashboard() {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-1">
+          <div className="lg-col-span-1">
             <div className="h-80 bg-muted rounded-lg animate-pulse"></div>
           </div>
-          <div className="lg:col-span-2">
+          <div className="lg-col-span-2">
             <div className="h-80 bg-muted rounded-lg animate-pulse"></div>
           </div>
         </div>
@@ -73,9 +77,11 @@ export default function Dashboard() {
 
       {/* Main Grid Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Profile */}
+        {/* Left Column - Profile Card is now self-sufficient via context */}
         <div className="lg:col-span-1">
-          <ProfileCard employeeId={CURRENT_EMPLOYEE_ID} />
+          <Link to="/profile" className="focus-ring rounded-lg block">
+            <ProfileCard />
+          </Link>
         </div>
 
         {/* Right Column - Task Overview */}

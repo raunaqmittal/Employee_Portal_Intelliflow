@@ -10,7 +10,15 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select'
-import { Search, Filter, CheckCircle, Clock, AlertCircle } from 'lucide-react'
+// Added the LogOut icon to the import list
+import { 
+  Search, 
+  Filter, 
+  CheckCircle, 
+  Clock, 
+  AlertCircle, 
+  LogOut 
+} from 'lucide-react'
 import { getTasksForEmployee } from '@/utils/dataParser'
 import type { TaskWithDetails, TaskStatus } from '@/types'
 
@@ -102,12 +110,12 @@ export default function Tasks() {
   return (
     <div className="p-6 space-y-6 animate-fade-in">
       {/* Page Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold text-foreground">My Tasks</h1>
-        <p className="text-muted-foreground">
-          Manage and update your assigned tasks across all projects and sprints.
-        </p>
-      </div>
+<div className="space-y-2">
+  <h1 className="text-3xl font-bold text-foreground">My Profile</h1> {/* Or "My Tasks" */}
+  <p className="text-muted-foreground">
+    {/* ... page description ... */}
+  </p>
+</div>
 
       {/* Filters & Search */}
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">

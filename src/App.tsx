@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Tasks";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import { UserProvider } from "./contexts/UserContext"; // 1. Import UserProvider
 
 const queryClient = new QueryClient();
 
@@ -16,27 +17,30 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={
-            <PortalLayout>
-              <Dashboard />
-            </PortalLayout>
-          } />
-          <Route path="/tasks" element={
-            <PortalLayout>
-              <Tasks />
-            </PortalLayout>
-          } />
-          <Route path="/profile" element={
-            <PortalLayout>
-              <Profile />
-            </PortalLayout>
-          } />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      {/* 2. Wrap BrowserRouter with UserProvider */}
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={
+              <PortalLayout>
+                <Dashboard />
+              </PortalLayout>
+            } />
+            <Route path="/tasks" element={
+              <PortalLayout>
+                <Tasks />
+              </PortalLayout>
+            } />
+            <Route path="/profile" element={
+              <PortalLayout>
+                <Profile />
+              </PortalLayout>
+            } />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
